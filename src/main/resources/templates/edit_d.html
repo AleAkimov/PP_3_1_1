@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Edit user</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+            padding: 20px;
+            border: 1px solid black;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container label {
+            margin-bottom: 5px;
+        }
+
+        .form-container input {
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 1em;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .form-container input[type="submit"] {
+            margin-top: 20px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+        }
+
+        .form-container .error {
+            color: red;
+            font-size: 0.9em;
+        }
+
+        .form-container .error-input {
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <h1>Редактирование пользователя</h1>
+    <form th:method="POST" th:action="@{/users/edit/{id}(id=${user.id})}" th:object="${user}">
+        <input type="hidden" name="id" th:field="*{id}"/>
+        <label for="name">Имя</label>
+        <input type="text" id="name" name="name" th:field="*{name}"
+               th:classappend="${#fields.hasErrors('name')} ? 'error-input' : ''"
+               placeholder="Введите имя" required/>
+        <div th:if="${#fields.hasErrors('name')}" class="error" th:errors="*{name}">Ошибка</div>
+
+        <label for="age">Возраст</label>
+        <input type="number" id="age" name="age" th:field="*{age}"
+               th:classappend="${#fields.hasErrors('age')} ? 'error-input' : ''"
+               placeholder="Введите возраст" required min="1"/>
+        <div th:if="${#fields.hasErrors('age')}" class="error" th:errors="*{age}">Ошибка</div>
+
+        <input type="submit" value="Ok"/>
+    </form>
+</div>
+</body>
+</html>
