@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 @Repository
 public class UserDaoImpl implements UserDao {
 
-    private static final Logger logger = Logger.getLogger(UserDaoImpl.class.getName());
+
 
     @PersistenceContext
     private EntityManager em;
