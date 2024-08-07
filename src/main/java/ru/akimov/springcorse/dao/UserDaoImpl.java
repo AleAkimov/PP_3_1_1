@@ -33,14 +33,15 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void delete(int id) {
         User user = findById(id);
-        if (user == null) {
-            throw new EntityNotFoundException("User not found for ID: " + id);
-        }
-        em.remove(findById(id));
+        em.remove(user);
     }
 
     @Override
     public User findById(int id) {
-        return em.find(User.class, id);
+        User user = em.find(User.class, id);
+        if (user == null) {
+            throw new EntityNotFoundException("User not found for ID: " + id);
+        }
+        return user;
     }
 }
